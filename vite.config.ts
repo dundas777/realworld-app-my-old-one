@@ -21,7 +21,7 @@ export default defineConfig(({ command, mode }) => {
       react(),
       eslint(),
       istanbul({
-        cypress: true,
+        cypress: false,
         requireEnv: true,
         exclude: ["node_modules", "cypress", "dist"],
         forceBuildInstrument: true,

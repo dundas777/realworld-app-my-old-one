@@ -15,15 +15,13 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noFallthroughCasesInSwitch": true,
-    "types": ["cypress"]
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "src/**/*.cy.{js,ts,jsx,tsx}",
     "scripts",
     "backend",
     "src/__tests__",
-    "cypress.d.ts",
     "src/utils/portUtils.ts"
   ]
 }
