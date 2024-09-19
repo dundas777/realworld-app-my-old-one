@@ -26,7 +26,7 @@ const router = express.Router();
 
 // Routes
 
-//GET /transactions - scoped user, auth-required
+//GET /transactions - scoped user, auth-required - transactions where user is sender or receiver
 router.get(
   "/",
   ensureAuthenticated,
@@ -58,7 +58,7 @@ router.get(
   }
 );
 
-//GET /transactions/contacts - scoped user, auth-required
+//GET /transactions/contacts - scoped user, auth-required - transactions where user or friend is sender or receiver?
 router.get(
   "/contacts",
   ensureAuthenticated,
@@ -90,13 +90,19 @@ router.get(
   }
 );
 
-//GET /transactions/public - auth-required
+//GET /transactions/public - auth-required - public transactions
 router.get(
   "/public",
   ensureAuthenticated,
   validateMiddleware(isTransactionPublicQSValidator),
   (req, res) => {
     const isFirstPage = req.query.page === 1;
+
+    // if (isEmpty(req.query)) {
+    //   console.log("=======================================> req.query IS empty");
+    // } else {
+    //   console.log("=======================================> req.query is NOT empty");
+    // }
 
     /* istanbul ignore next */
     let transactions = !isEmpty(req.query)
@@ -105,6 +111,10 @@ router.get(
         getPublicTransactionsDefaultSort(req.user?.id!);
 
     const { contactsTransactions, publicTransactions } = transactions;
+
+    // console.log(`=================> contactsTransactions.length = ${contactsTransactions.length}`);
+    // console.log(`=================> publicTransactions.length = ${publicTransactions.length}`);
+    // console.log(`=================> isFirstPage = ${isFirstPage}`);
 
     let publicTransactionsWithContacts;
 
@@ -117,6 +127,7 @@ router.get(
     const { totalPages, data: paginatedItems } = getPaginatedItems(
       req.query.page,
       req.query.limit,
+      // publicTransactions
       isFirstPage ? publicTransactionsWithContacts : publicTransactions
     );
 

@@ -103,8 +103,10 @@ export const seedDatabase = () => {
 
 export const getAllUsers = () => db.get(USER_TABLE).value();
 
-export const getAllPublicTransactions = () =>
-  db.get(TRANSACTION_TABLE).filter({ privacyLevel: DefaultPrivacyLevel.public }).value();
+export const getAllPublicTransactions = () => {
+  //console.log(" ==================================>> Getting public transactions");
+  return db.get(TRANSACTION_TABLE).filter({ privacyLevel: DefaultPrivacyLevel.public }).value();
+};
 
 export const getAllForEntity = (entity: keyof DbSchema) => db.get(entity).value();
 
