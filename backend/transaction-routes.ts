@@ -26,7 +26,7 @@ const router = express.Router();
 
 // Routes
 
-//GET /transactions - scoped user, auth-required - transactions where user is sender or receiver
+//GET /transactions - scoped user, auth-required - transactions where user is sender or receiver!
 router.get(
   "/",
   ensureAuthenticated,
